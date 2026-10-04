@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://files.pythonhosted.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: be4824c44eb8a67c35ce8f9b22f798125d0066717633c0d139c356c7aa1ba111
 
 build:
@@ -15,11 +15,12 @@ build:
     - python setup.py build_ext -I$PREFIX/include/eigen3 install  # [arm64]
     - python setup.py build_ext -I$PREFIX/include/eigen3 install  # [linux]  
     - python setup.py build_ext -I%PREFIX%\Library\include\eigen3 install  # [win]
-  number: 1
+  number: 2
 
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - {{ stdlib("c") }}
   host:
     - libgomp  # [linux]
     - numpy 1.23
